@@ -12,5 +12,5 @@ void NoobaVSSAD::launch(){
 }
 
 void NoobaVSSAD::readInputs(){
-    qDebug() << "Test";
+    qDebug() << "time";
 }

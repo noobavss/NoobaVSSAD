@@ -1,6 +1,6 @@
 #include <QtCore/QCoreApplication>
 #include <QDebug>
-#include <featurenode.h>
+#include <readernode.h>
 #include <noobavssad.h>
 
 int main(int argc, char *argv[])
@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 
     application.launch();
 
-    FeatureNode reader,receiver;
+    ReaderNode reader,receiver;
 
     QObject::connect(&reader,SIGNAL(generateEvent(DetectedEvent)),&receiver,SLOT(captureEvent(DetectedEvent)));
 
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     qDebug() << event.getConfidence() << "\n";
 
 
-    reader.insertEvent(event);
+    reader.processEvent(event);
 
 
     return a.exec();

@@ -18,12 +18,16 @@ TEMPLATE = app
 SOURCES += main.cpp \
     noobavssad.cpp \
     featurenode.cpp \
-    detecedevent.cpp
+    detecedevent.cpp \
+    readernode.cpp
 
 HEADERS += \
     noobavssad.h \
     featurenode.h \
-    detectedevent.h
+    detectedevent.h \
+    readernode.h
+
+
 
 
 
