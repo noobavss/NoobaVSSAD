@@ -6,8 +6,10 @@ FeatureNode::FeatureNode(QObject *parent) :
 {
 }
 
-void FeatureNode::insertEvent(const DetectedEvent event)
+/*
+void FeatureNode::processEvent(const DetectedEvent event)
 {
     qDebug() << event.getIdentifier() << " " << event.getMessage() << " " << event.getConfidence();
     emit generateEvent(event);
 }
+*/

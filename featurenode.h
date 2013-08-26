@@ -8,11 +8,11 @@ class FeatureNode : public QObject
 {
     Q_OBJECT
 public:
-    FeatureNode(QObject* parent = 0);
+    explicit FeatureNode(QObject* parent = 0);
 
-    void insertEvent(const DetectedEvent event);
+    virtual void processEvent(const DetectedEvent event) = 0;
 public slots:
-    void captureEvent(DetectedEvent captured_event){ insertEvent(captured_event);}
+    void captureEvent(DetectedEvent captured_event){ processEvent(captured_event);}
 
 signals:
     void generateEvent(DetectedEvent generated_event);

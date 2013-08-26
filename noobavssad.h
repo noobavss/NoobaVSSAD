@@ -3,16 +3,19 @@
 
 #include <QObject>
 #include <QTimer>
+#include <QDebug>
 
 class NoobaVSSAD : public QObject
 {
     Q_OBJECT
 public:
     explicit NoobaVSSAD(QObject *parent = 0);
+    void launch();
 
 signals:
 
 public slots:
+    void readInputs();
 
 private:
 

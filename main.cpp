@@ -1,11 +1,15 @@
 #include <QtCore/QCoreApplication>
-#include <featurenode.h>
 #include <QDebug>
+#include <featurenode.h>
+#include <noobavssad.h>
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
+    NoobaVSSAD application;
+
+    application.launch();
 
     FeatureNode reader,receiver;
 
