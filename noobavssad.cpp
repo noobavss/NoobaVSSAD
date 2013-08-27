@@ -2,17 +2,18 @@
 
 NoobaVSSAD::NoobaVSSAD(QObject *parent) :
     QObject(parent),
-    fileReader("G:/FYP/FYP/results/S1-T1-C-3-track.txt"),
+    blobPositionReader("G:/FYP/FYP/results/data/pets2006-test3-blobs.txt"),
+    facePositionReader("G:/FYP/FYP/results/data/pets2006-test3-blobs-staticbgsubs.txt"),
     startingDummy("0-TrackPosition","10,12",1.0)
 {
     connect(&timer, SIGNAL(timeout()), this, SLOT(readInputs()));
-
 }
 
 void NoobaVSSAD::launch(){
-    timer.start(1000);
+    timer.start(200);
 }
 
 void NoobaVSSAD::readInputs(){
-    fileReader.processEvent(startingDummy);
+    blobPositionReader.processEvent(startingDummy);
+    facePositionReader.processEvent(startingDummy);
 }

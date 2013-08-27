@@ -22,7 +22,8 @@ private:
 
     QTimer timer;
     DetectedEvent startingDummy;
-    ReaderNode fileReader;
+    ReaderNode blobPositionReader;
+    ReaderNode facePositionReader;
 
 };
 
