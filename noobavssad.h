@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTimer>
 #include <QDebug>
+#include <readernode.h>
 
 class NoobaVSSAD : public QObject
 {
@@ -20,7 +21,8 @@ public slots:
 private:
 
     QTimer timer;
-
+    DetectedEvent startingDummy;
+    ReaderNode fileReader;
 
 };
 
