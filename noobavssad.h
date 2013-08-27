@@ -5,6 +5,7 @@
 #include <QTimer>
 #include <QDebug>
 #include <readernode.h>
+#include <distancenode.h>
 
 class NoobaVSSAD : public QObject
 {
@@ -24,7 +25,7 @@ private:
     DetectedEvent startingDummy;
     ReaderNode blobPositionReader;
     ReaderNode facePositionReader;
-
+    DistanceNode blobDistanceNode;
 };
 
 #endif // NOOBAVSSAD_H

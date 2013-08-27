@@ -19,13 +19,21 @@ SOURCES += main.cpp \
     noobavssad.cpp \
     featurenode.cpp \
     detecedevent.cpp \
-    readernode.cpp
+    readernode.cpp \
+    distancenode.cpp
 
 HEADERS += \
     noobavssad.h \
     featurenode.h \
     detectedevent.h \
-    readernode.h
+    readernode.h \
+    distancenode.h
+
+
+
+
+
+
 
 
 
