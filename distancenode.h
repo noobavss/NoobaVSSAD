@@ -3,6 +3,8 @@
 
 #include <QFile>
 #include <QDebug>
+#include <QList>
+#include <qmath.h>
 #include <QStringList>
 #include <featurenode.h>
 
@@ -12,7 +14,10 @@ public:
     explicit DistanceNode(FeatureNode* parent = 0);
     ~DistanceNode();
 
-    void processEvent(const DetectedEvent event);
+    void processEvents(const QList<DetectedEvent> event);
+
+private:
+    QFile file;
 
 };
 

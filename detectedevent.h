@@ -3,13 +3,16 @@
 
 #include <QObject>
 #include <QString>
+#include <QMetaType>
 
 class DetectedEvent : public QObject
 {
     Q_OBJECT
 public:
     DetectedEvent();
-    DetectedEvent(const DetectedEvent &other);
+    DetectedEvent(QObject *parent);             // constructor
+    DetectedEvent(const DetectedEvent &other);  // copy constructor
+    DetectedEvent& operator =(const DetectedEvent &other); // assignment operator
     ~DetectedEvent();
 
     DetectedEvent(QString event_id,QString event_msg, float conf,QObject *parent = 0) :
@@ -27,8 +30,7 @@ private:
     QString event_identifier;
     QString event_message;
     float confidence;
-}
-
-Q_DECLARE_METATYPE(DetectedEvent);
+};
+Q_DECLARE_METATYPE(DetectedEvent)
 
 #endif // DETECTEDEVENT_H

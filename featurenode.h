@@ -2,6 +2,7 @@
 #define FEATURENODE_H
 
 #include <QObject>
+#include <QList>
 #include "detectedevent.h"
 
 class FeatureNode : public QObject
@@ -10,12 +11,11 @@ class FeatureNode : public QObject
 public:
     explicit FeatureNode(QObject* parent = 0);
 
-    virtual void processEvent(const DetectedEvent event) = 0;
+    virtual void processEvents(const QList<DetectedEvent> event) = 0;
 public slots:
-    void captureEvent(DetectedEvent captured_event){ processEvent(captured_event);}
-
+    void captureEvent(QList<DetectedEvent> captured_event){ processEvents(captured_event);}
 signals:
-    void generateEvent(DetectedEvent generated_event);
+    void generateEvent(QList<DetectedEvent> generated_event);
 
 };
 

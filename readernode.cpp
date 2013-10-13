@@ -2,10 +2,12 @@
 
 ReaderNode::ReaderNode(FeatureNode* parent):
     FeatureNode(parent),
-    file("c:/in.txt")
+    file("~/Programming/FYP/data/pets2006-test3-blobs.txt")
 {
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return;
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        qDebug() << "No input file to read! Abort.";
+        exit(1);
+    }
 
     in.setDevice(&file);
 
@@ -15,9 +17,10 @@ ReaderNode::ReaderNode(QString filename,FeatureNode* parent):
     FeatureNode(parent),
     file(filename)
 {
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return;
-
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        qDebug() << "No input file named " << filename << "! Abort.";
+        exit(1);
+    }
     in.setDevice(&file);
 
 }
@@ -26,8 +29,10 @@ ReaderNode::~ReaderNode(){
     file.close();
 }
 
-void ReaderNode::processEvent(const DetectedEvent event)
+void ReaderNode::processEvents(const QList<DetectedEvent> event)
 {
+
+    QList<DetectedEvent> generatedEvents;
     //qDebug() << event.getIdentifier() << " " << event.getMessage() << " " << event.getConfidence();
     QString eventmessage = readFile();
 
@@ -57,15 +62,18 @@ void ReaderNode::processEvent(const DetectedEvent event)
 //            qDebug() << frame << " " << tag << " " << x_position << " " << y_position;
             qDebug() << "blob " << i << " " << event_strings.at(i);
             DetectedEvent newEvent("blob",event_strings.at(i),1.0);
-            emit generateEvent(newEvent);
+            generatedEvents.append(newEvent);
         }
     }
-
+            emit generateEvent(generatedEvents);
 
 }
 
 QString ReaderNode::readFile(){
-
+    if(!in.device()){
+        qDebug() << "No input file to read! Abort.";
+        exit(1);
+    }
      if(!in.atEnd()) {
          QString line = in.readLine();
          return line;

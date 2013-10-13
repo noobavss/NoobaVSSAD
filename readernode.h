@@ -3,6 +3,7 @@
 
 #include <QFile>
 #include <QDebug>
+#include <QList>
 #include <QStringList>
 #include <featurenode.h>
 
@@ -13,7 +14,7 @@ public:
     ReaderNode(QString filename,FeatureNode* parent = 0);
     ~ReaderNode();
 
-    void processEvent(const DetectedEvent event);
+    void processEvents(const QList<DetectedEvent> event);
 
 
 private:

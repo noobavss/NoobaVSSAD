@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTimer>
 #include <QDebug>
+#include <QList>
 #include <readernode.h>
 #include <distancenode.h>
 
@@ -22,7 +23,7 @@ public slots:
 private:
 
     QTimer timer;
-    DetectedEvent startingDummy;
+    QList<DetectedEvent> startingDummy;
     ReaderNode blobPositionReader;
     ReaderNode facePositionReader;
     DistanceNode blobDistanceNode;
