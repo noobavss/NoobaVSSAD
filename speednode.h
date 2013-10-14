@@ -1,6 +1,7 @@
 #ifndef SPEEDNODE_H
 #define SPEEDNODE_H
 
+#include <qmath.h>
 #include <QList>
 #include <QStringList>
 #include <QDebug>
@@ -14,6 +15,9 @@ public:
 
     void processEvents(const QList<DetectedEvent> event);
 
+private:
+    QList<DetectedEvent> currentBlobEvents;
+    QList<DetectedEvent> previousBlobEvents;
 };
 
 #endif // SPEEDNODE_H

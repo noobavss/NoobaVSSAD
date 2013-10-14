@@ -5,6 +5,7 @@ NoobaVSSAD::NoobaVSSAD(QObject *parent) :
     blobPositionReader("/home/chathuranga/Programming/FYP/data/text/2013-10-13-blob_centroids.txt"),
     facePositionReader("/home/chathuranga/Programming/FYP/data/text/pets2006-test3-blobs.txt"),
     blobDistanceWriterNode("/home/chathuranga/Programming/FYP/data/text/2013-10-14-blob-distances.txt"),
+    blobSpeedWriterNode("/home/chathuranga/Programming/FYP/data/text/2013-10-14-blob-speeds.txt"),
     startingDummy()
 {
     connect(&timer, SIGNAL(timeout()), this, SLOT(readInputs()));
@@ -12,8 +13,11 @@ NoobaVSSAD::NoobaVSSAD(QObject *parent) :
     connect(&blobPositionReader, SIGNAL(generateEvent(QList<DetectedEvent>)), &blobPositionDelayedNode, SLOT(captureEvent(QList<DetectedEvent>)));
     connect(&blobDistanceNode, SIGNAL(generateEvent(QList<DetectedEvent>)), &blobDistanceWriterNode, SLOT(captureEvent(QList<DetectedEvent>)));
 
-    connect(&blobDistanceNode, SIGNAL(generateEvent(QList<DetectedEvent>)), &blobSpeedNode, SLOT(captureEvent(QList<DetectedEvent>)));
+    connect(&blobPositionReader, SIGNAL(generateEvent(QList<DetectedEvent>)), &blobSpeedNode, SLOT(captureEvent(QList<DetectedEvent>)));
     connect(&blobPositionDelayedNode, SIGNAL(generateEvent(QList<DetectedEvent>)), &blobSpeedNode, SLOT(captureEvent(QList<DetectedEvent>)));
+    connect(&blobPositionDelayedNode, SIGNAL(generateEvent(QList<DetectedEvent>)), &blobSpeedNode, SLOT(captureEvent(QList<DetectedEvent>)));
+
+    connect(&blobSpeedNode, SIGNAL(generateEvent(QList<DetectedEvent>)), &blobSpeedWriterNode, SLOT(captureEvent(QList<DetectedEvent>)));
 
 }
 

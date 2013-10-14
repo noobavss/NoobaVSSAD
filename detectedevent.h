@@ -15,7 +15,7 @@ public:
     DetectedEvent& operator =(const DetectedEvent &other); // assignment operator
     ~DetectedEvent();
 
-    DetectedEvent(QString event_id,QString event_msg, float conf,QObject *parent = 0) :
+    DetectedEvent(const QString event_id,const QString event_msg, const float conf,QObject *parent = 0) :
          QObject(parent),event_identifier(event_id),event_message(event_msg),confidence(conf){}
 
     QString getIdentifier() const { return event_identifier;}

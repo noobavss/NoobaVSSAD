@@ -32,8 +32,9 @@ private:
     ReaderNode facePositionReader;
     DistanceNode blobDistanceNode;
     DelayNode blobPositionDelayedNode;
-    FileWriterNode blobDistanceWriterNode;
     SpeedNode blobSpeedNode;
+    FileWriterNode blobDistanceWriterNode;
+    FileWriterNode blobSpeedWriterNode;
 };
 
 #endif // NOOBAVSSAD_H

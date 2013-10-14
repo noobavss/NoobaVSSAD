@@ -60,12 +60,12 @@ void ReaderNode::processEvents(const QList<DetectedEvent> event)
 //            if(!ok) return;
 
 //            qDebug() << frame << " " << tag << " " << x_position << " " << y_position;
-            qDebug() << "blob " << i << " " << event_strings.at(i);
+//            qDebug() << "blob " << i << " " << event_strings.at(i);
             DetectedEvent newEvent("blob",event_strings.at(i),1.0);
             generatedEvents.append(newEvent);
         }
     }
-            emit generateEvent(generatedEvents);
+    emit generateEvent(generatedEvents);
 
 }
 
@@ -79,6 +79,8 @@ QString ReaderNode::readFile(){
          return line;
      }
      else{
-         return "\n";
+         qDebug() << "end of file";
+         exit(0);
+         //return "\n";
      }
 }
