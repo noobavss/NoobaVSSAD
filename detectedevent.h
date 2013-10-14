@@ -22,6 +22,11 @@ public:
     QString getMessage() const { return event_message;}
     float getConfidence() const { return confidence;}
 
+    void setIdentifier(const QString event_id) { event_identifier = event_id;}
+    void setMessage(const QString event_msg)  { event_message = event_msg;}
+    void setConfidence(const float conf) { confidence = conf;}
+
+
 signals:
 
 public slots:

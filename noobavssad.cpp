@@ -11,6 +11,10 @@ NoobaVSSAD::NoobaVSSAD(QObject *parent) :
     connect(&blobPositionReader, SIGNAL(generateEvent(QList<DetectedEvent>)), &blobDistanceNode, SLOT(captureEvent(QList<DetectedEvent>)));
     connect(&blobPositionReader, SIGNAL(generateEvent(QList<DetectedEvent>)), &blobPositionDelayedNode, SLOT(captureEvent(QList<DetectedEvent>)));
     connect(&blobDistanceNode, SIGNAL(generateEvent(QList<DetectedEvent>)), &blobDistanceWriterNode, SLOT(captureEvent(QList<DetectedEvent>)));
+
+    connect(&blobDistanceNode, SIGNAL(generateEvent(QList<DetectedEvent>)), &blobSpeedNode, SLOT(captureEvent(QList<DetectedEvent>)));
+    connect(&blobPositionDelayedNode, SIGNAL(generateEvent(QList<DetectedEvent>)), &blobSpeedNode, SLOT(captureEvent(QList<DetectedEvent>)));
+
 }
 
 void NoobaVSSAD::launch(){

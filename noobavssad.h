@@ -9,6 +9,7 @@
 #include <distancenode.h>
 #include <delaynode.h>
 #include <filewriternode.h>
+#include <speednode.h>
 
 
 class NoobaVSSAD : public QObject
@@ -32,6 +33,7 @@ private:
     DistanceNode blobDistanceNode;
     DelayNode blobPositionDelayedNode;
     FileWriterNode blobDistanceWriterNode;
+    SpeedNode blobSpeedNode;
 };
 
 #endif // NOOBAVSSAD_H

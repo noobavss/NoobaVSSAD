@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     readernode.cpp \
     distancenode.cpp \
     delaynode.cpp \
-    filewriternode.cpp
+    filewriternode.cpp \
+    speednode.cpp
 
 HEADERS += \
     noobavssad.h \
@@ -31,7 +32,8 @@ HEADERS += \
     readernode.h \
     distancenode.h \
     delaynode.h \
-    filewriternode.h
+    filewriternode.h \
+    speednode.h
 
 FORMS +=
 

@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QQueue>
+#include <QDebug>
 #include <featurenode.h>
 
 class DelayNode : public FeatureNode
