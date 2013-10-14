@@ -7,6 +7,7 @@
 #include <QList>
 #include <readernode.h>
 #include <distancenode.h>
+#include <delaynode.h>
 
 class NoobaVSSAD : public QObject
 {
@@ -27,6 +28,7 @@ private:
     ReaderNode blobPositionReader;
     ReaderNode facePositionReader;
     DistanceNode blobDistanceNode;
+    DelayNode blobPositionDelayedNode;
 };
 
 #endif // NOOBAVSSAD_H

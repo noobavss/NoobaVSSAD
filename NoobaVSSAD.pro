@@ -20,14 +20,16 @@ SOURCES += main.cpp \
     featurenode.cpp \
     detecedevent.cpp \
     readernode.cpp \
-    distancenode.cpp
+    distancenode.cpp \
+    delaynode.cpp
 
 HEADERS += \
     noobavssad.h \
     featurenode.h \
     detectedevent.h \
     readernode.h \
-    distancenode.h
+    distancenode.h \
+    delaynode.h
 
 FORMS +=
 
