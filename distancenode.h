@@ -1,10 +1,9 @@
 #ifndef DISSTANCENODE_H
 #define DISSTANCENODE_H
 
-#include <QFile>
-#include <QDebug>
-#include <QList>
+
 #include <qmath.h>
+#include <QList>
 #include <QStringList>
 #include <featurenode.h>
 
@@ -16,8 +15,7 @@ public:
 
     void processEvents(const QList<DetectedEvent> event);
 
-private:
-    QFile file;
+
 
 };
 

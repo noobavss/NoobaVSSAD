@@ -1,19 +1,14 @@
 #include "distancenode.h"
-#include <QFile>
-#include <QTextStream>
-DistanceNode::DistanceNode(FeatureNode *parent) :
-    FeatureNode(parent),
-    file("/home/chathuranga/Programming/FYP/data/text/2013-10-13-blob-distances.txt")
-{
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-        return;
 
+DistanceNode::DistanceNode(FeatureNode *parent) :
+    FeatureNode(parent)
+{
 }
 
 
 DistanceNode::~DistanceNode()
 {
-    file.close();
+
 }
 
 void DistanceNode::processEvents(const QList<DetectedEvent> event)
@@ -35,12 +30,5 @@ void DistanceNode::processEvents(const QList<DetectedEvent> event)
         }
     }
 
-
-    QTextStream out_stream(&file);
-    foreach(DetectedEvent e, distanceEvent){
-        qDebug() << "===================================" << e.getIdentifier() << " " << e.getMessage() << " " << e.getConfidence();
-        out_stream << e.getIdentifier() << "," << e.getMessage() << "\n";
-    }
-
-    //emit generateEvent(distanceEvent);
+    emit generateEvent(distanceEvent);
 }

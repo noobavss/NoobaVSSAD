@@ -8,6 +8,8 @@
 #include <readernode.h>
 #include <distancenode.h>
 #include <delaynode.h>
+#include <filewriternode.h>
+
 
 class NoobaVSSAD : public QObject
 {
@@ -29,6 +31,7 @@ private:
     ReaderNode facePositionReader;
     DistanceNode blobDistanceNode;
     DelayNode blobPositionDelayedNode;
+    FileWriterNode blobDistanceWriterNode;
 };
 
 #endif // NOOBAVSSAD_H

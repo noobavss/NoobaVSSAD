@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     detecedevent.cpp \
     readernode.cpp \
     distancenode.cpp \
-    delaynode.cpp
+    delaynode.cpp \
+    filewriternode.cpp
 
 HEADERS += \
     noobavssad.h \
@@ -29,7 +30,8 @@ HEADERS += \
     detectedevent.h \
     readernode.h \
     distancenode.h \
-    delaynode.h
+    delaynode.h \
+    filewriternode.h
 
 FORMS +=
 
