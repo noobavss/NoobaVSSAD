@@ -36,7 +36,7 @@ void AbandonedObjectNode::processEvents(const QList<DetectedEvent> event)
 
                 float distChange = message.at(2).toFloat();
 
-                if(distChange <0.2){
+                if(distChange <1.0){
                     continue;
                 }
 
@@ -53,10 +53,10 @@ void AbandonedObjectNode::processEvents(const QList<DetectedEvent> event)
                     speedSecondBlob = speedEvent.getMessage().split(",").at(2).toFloat();
 
                     if(speedFirstBlob <0.01 && speedSecondBlob > 3.0){
-                        abandonedObjectEvent.append(DetectedEvent("ABObj",QString("%1,%2,%3").arg(message.at(0)).arg(blobIds.at(0)).arg(blobIds.at(1)),1.0));
+                        abandonedObjectEvent.append(DetectedEvent("ABObj",QString("%1,%2,%3,%4,%5,%6").arg(message.at(0)).arg(blobIds.at(0)).arg(blobIds.at(1)).arg(distChange).arg(speedFirstBlob).arg(speedSecondBlob),1.0));
                     }
                     else if(speedFirstBlob > 3.0 && speedSecondBlob <0.01){
-                        abandonedObjectEvent.append(DetectedEvent("ABObj",QString("%1,%2,%3").arg(message.at(0)).arg(blobIds.at(1)).arg(blobIds.at(0)),1.0));
+                        abandonedObjectEvent.append(DetectedEvent("ABObj",QString("%1,%2,%3,%4,%5,%6").arg(message.at(0)).arg(blobIds.at(1)).arg(blobIds.at(0)).arg(distChange).arg(speedSecondBlob).arg(speedFirstBlob),1.0));
                     }
                 }
                 //else continue;

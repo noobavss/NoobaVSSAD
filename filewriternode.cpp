@@ -19,7 +19,6 @@ FileWriterNode::FileWriterNode(QString filename,FeatureNode* parent):
         return;
     }
     out_stream.setDevice(&file);
-
 }
 
 FileWriterNode::~FileWriterNode()
@@ -32,6 +31,6 @@ void FileWriterNode::processEvents(const QList<DetectedEvent> event)
     foreach(DetectedEvent e, event){
         qDebug() << "===================================" << e.getIdentifier() << " " << e.getMessage() << " " << e.getConfidence();
         out_stream << e.getIdentifier() << "," << e.getMessage() << "\n";
+        out_stream.flush();
     }
-
 }
