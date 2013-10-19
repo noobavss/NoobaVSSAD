@@ -33,13 +33,14 @@ private:
     ReaderNode blobPositionReader;
     ReaderNode facePositionReader;
     DistanceNode blobDistanceNode;
-    DelayNode blobPositionDelayedNode;
+    //DelayNode blobPositionDelayedNode;
     SpeedNode blobSpeedNode;
     AbandonedObjectNode leftBagNode;
     FileWriterNode blobDistanceWriterNode;
     FileWriterNode blobSpeedWriterNode;
     DistanceChange distanceChangeNode;
     FileWriterNode distanceChangeWriterNode;
+    FileWriterNode leftBagWriterNode;
 
 
 };

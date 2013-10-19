@@ -36,7 +36,7 @@ void DistanceChange::processEvents(const QList<DetectedEvent> event)
                 DetectedEvent oldEvent = previousEvents.value(newMessage.at(1));
                 QList<QString> oldMessage = oldEvent.getMessage().split(",");
 
-                float distanceChange = newMessage.at(2).toFloat() - oldMessage.at(2).toFloat();
+                float distanceChange = (newMessage.at(2).toFloat() - oldMessage.at(2).toFloat())/ (newMessage.at(0).toFloat() - oldMessage.at(0).toFloat());
                 distanceChangeEvent.append(DetectedEvent("distChange",QString("%1,%2,%3").arg(newMessage.at(0)).arg(newMessage.at(1)).arg(distanceChange),1.0));
 
             }

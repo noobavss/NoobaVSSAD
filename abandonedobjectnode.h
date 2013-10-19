@@ -4,6 +4,7 @@
 #include <featurenode.h>
 #include <QList>
 #include <QStringList>
+#include <QHash>
 #include <QDebug>
 
 class AbandonedObjectNode : public FeatureNode
@@ -14,8 +15,7 @@ public:
 
     void processEvents(const QList<DetectedEvent> event);
 private:
-    QList<DetectedEvent> speedEvents;
-    QList<DetectedEvent> distanceEvents;
+     QHash<QString,DetectedEvent> speedEvents;
 };
 
 #endif // ABANDONEDOBJECTNODE_H

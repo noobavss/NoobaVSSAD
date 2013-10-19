@@ -13,56 +13,49 @@ SpeedNode::~SpeedNode()
 void SpeedNode::processEvents(const QList<DetectedEvent> event)
 {
 
-    //Recieve both current and previous blob positions at two calls.
-    //This will gather both, and when both are recieced it will process.
 
-    if(event.count() >0){
-        if(event.at(0).getIdentifier() == "blob"){
-            qDebug() << "got blobs" << event.at(0).getMessage();
-            currentBlobEvents = event;
-        }
-        else{
-            QList<QString> id = event.at(0).getIdentifier().split("_");
-            if( id.at(0) == "delayed"){
-                qDebug() << "got delayed blobs" << event.at(0).getMessage();
-                previousBlobEvents = event;
+    //This should recieve blob events only.
+    //TODO: Remove some old keys from hash map in timely mannar.
+
+    //This is output event
+    QList<DetectedEvent> speedEvent;
+
+    //previousEvents hash map consists of previous events recieved before now.
+    //if this is empty, we simply cannot find a speed.
+    if(!previousEvents.isEmpty()){
+
+        foreach(DetectedEvent newEvent, event){
+
+            //We are checking is there any previous matching blob for each new blob.
+            //If so, we calcuate speed and add an DetectedEvent to the output List.
+
+            QList<QString> newMessage = newEvent.getMessage().split(",");
+            if(previousEvents.contains(newMessage.at(1))){
+                //Then we have two instances, so can calculate a speed of blob.
+
+                //expected to be newMessage.at(1) as 1 which are the id of a blob
+                DetectedEvent oldEvent = previousEvents.value(newMessage.at(1));
+                QList<QString> oldMessage = oldEvent.getMessage().split(",");
+
+                float speedX = (newMessage.at(2).toFloat() - oldMessage.at(2).toFloat()) / (newMessage.at(0).toFloat() - oldMessage.at(0).toFloat());
+                float speedY = (newMessage.at(3).toFloat() - oldMessage.at(3).toFloat()) / (newMessage.at(0).toFloat() - oldMessage.at(0).toFloat());
+
+                float speed = sqrt(speedX * speedX + speedY * speedY);
+                speedEvent.append(DetectedEvent("speed",QString("%1,%2,%3").arg(newMessage.at(0)).arg(newMessage.at(1)).arg(speed),1.0));
+
             }
         }
     }
 
-    //If both previous and current information have been recieved,
-    //following will calculate speed and emit speed event.
-    if(!currentBlobEvents.empty() && !previousBlobEvents.empty()){
-        //qDebug() << "Recieved Both";
-
-        QList<DetectedEvent> speedEvent;
-
-        for(int i = 0; i < currentBlobEvents.count(); i++){
-            for(int j = 0; j < previousBlobEvents.count(); j++){
-
-                QList<QString> currentParams = currentBlobEvents.at(i).getMessage().split(",");
-                QList<QString> delayedParams = previousBlobEvents.at(j).getMessage().split(",");
-
-                //"426,11,330.554,200.367"
-                if(currentParams.at(1) == delayedParams.at(1)){
-                    float distX = currentParams.at(2).toFloat() - delayedParams.at(2).toFloat();
-                    float distY = currentParams.at(3).toFloat() - delayedParams.at(3).toFloat();
-
-                    float distance = qSqrt(distX* distX + distY * distY);
-
-                    speedEvent.append(DetectedEvent("speed",QString("%1,%2,%3").arg(currentParams.at(0)).arg(currentParams.at(1)).arg(distance),1.0));
-                }
-            }
-        }
-
-        if(!speedEvent.empty()){
-            emit generateEvent(speedEvent);
-        }
-
-        //After processing, we should erase existing data for next time step
-        currentBlobEvents.clear();
-        previousBlobEvents.clear();
-
+    //Insert new events anyway to the hash map.
+    //If already exists the key, this will replace the previous version
+    foreach(DetectedEvent e, event){
+        QList<QString> message = e.getMessage().split(",");
+        previousEvents.insert(message.at(1),e);
     }
-    else return;
+    if(!speedEvent.isEmpty()){
+        emit generateEvent(speedEvent);
+    }
+
+
 }

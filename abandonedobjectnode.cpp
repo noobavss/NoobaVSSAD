@@ -15,75 +15,64 @@ void AbandonedObjectNode::processEvents(const QList<DetectedEvent> event)
 {
 
     
-    //1.
-    foreach( DetectedEvent e, event){
-        qDebug() << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << e.getIdentifier() << " " << e.getMessage() << " " << e.getConfidence();
 
-    }
+//    foreach( DetectedEvent e, event){
+//        qDebug() << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << e.getIdentifier() << " " << e.getMessage() << " " << e.getConfidence();
 
+//    }
+
+    //This is output event
+    QList<DetectedEvent> abandonedObjectEvent;
 
     //Recieve both speed and relative distance at two calls.
     //This will gather both, and when both are recieced it will process.
-    /*
-    if(event.count() >0){
+
+    if(!event.isEmpty()){
         QList<QString> id = event.at(0).getIdentifier().split("_");
-        if( id.at(0) == "distance"){
-            qDebug() << "got distance at AB Obj" << event.at(0).getMessage();
-            distanceEvents = event;
+        if( id.at(0) == "distChange"){
 
-            if(!speedEvents.empty() && !distanceEvents.empty()){
+            foreach(DetectedEvent distChangeEvent, event){
+                QList<QString> message = distChangeEvent.getMessage().split(",");
 
-                //If the speed events are available at the time we recieve distanceEvents, speedEvents might be older,
-                //and may not consist all relevant speeds.
-                QList<QString> speedParams = speedEvents.at(0).getMessage().split(",");
-                QList<QString> distanceParams = distanceEvents.at(0).getMessage().split(",");
+                float distChange = message.at(2).toFloat();
 
-                if(speedParams.at(0) < distanceParams.at(0)){
-                    speedEvents.clear();
+                if(distChange <0.2){
+                    continue;
                 }
+
+                //else, distance is changing, so we are looking weather one blob is not moving
+                QList<QString> blobIds = message.at(1).split("-");
+
+                 float speedFirstBlob = 0.0;
+                 float speedSecondBlob = 0.0;
+                if(speedEvents.contains(blobIds.at(0)) && speedEvents.contains(blobIds.at(1))){
+                    DetectedEvent speedEvent = speedEvents.value(blobIds.at(0));
+                    speedFirstBlob = speedEvent.getMessage().split(",").at(2).toFloat();
+
+                    speedEvent = speedEvents.value(blobIds.at(1));
+                    speedSecondBlob = speedEvent.getMessage().split(",").at(2).toFloat();
+
+                    if(speedFirstBlob <0.01 && speedSecondBlob > 3.0){
+                        abandonedObjectEvent.append(DetectedEvent("ABObj",QString("%1,%2,%3").arg(message.at(0)).arg(blobIds.at(0)).arg(blobIds.at(1)),1.0));
+                    }
+                    else if(speedFirstBlob > 3.0 && speedSecondBlob <0.01){
+                        abandonedObjectEvent.append(DetectedEvent("ABObj",QString("%1,%2,%3").arg(message.at(0)).arg(blobIds.at(1)).arg(blobIds.at(0)),1.0));
+                    }
+                }
+                //else continue;
             }
         }
-        else if(event.at(0).getIdentifier() == "speed"){
-            qDebug() << "got speed at AB Obj" << event.at(0).getMessage();
-            speedEvents = event;
-        }
-    }
-    //If both speed and distance information have been recieved,
-    //following will check for abandoned objects.
-    //Concept is, if the relative distance between two objects increase with time,
-    //and one of objects are not moving, that might be an abandoned object.
-
-    if(!speedEvents.empty() && !distanceEvents.empty()){
-        //qDebug() << "Recieved Both";
-
-
-        for(int i = 0; i < distanceEvents.count(); i++){
-            for(int j = 0; j < speedEvents.count(); j++){
-
-                QList<QString> speedParams = speedEvents.at(i).getMessage().split(",");
-                QList<QString> distanceParams = distanceEvents.at(j).getMessage().split(",");
-
-                QList<QString> blobs = distanceParams.at(1).split("-");
-
-                qDebug() << distanceParams.at(1);
-
-                //if(speedParams.at(2).toFloat() > 5.0){
-                //    break;
-                //}
-
-                if(speedParams.at(1) == blobs.at(0)){
-                    qDebug() << "First Blob match with less speed";
-                }
-                if(speedParams.at(1) == blobs.at(1)){
-                    qDebug() << "Second Blob match with less speed";
-                }
+        else if(id.at(0) == "speed"){
+            //Insert new speed events to the hash map.
+            //If already exists the key, this will replace the previous version
+            foreach(DetectedEvent e, event){
+                QList<QString> message = e.getMessage().split(",");
+                speedEvents.insert(message.at(1),e);
             }
         }
 
-        //After processing, we should erase existing data for next time step
-        speedEvents.clear();
-        distanceEvents.clear();
+        if(!abandonedObjectEvent.isEmpty()){
+            emit generateEvent(abandonedObjectEvent);
+        }
     }
-    else return;
-        */
 }

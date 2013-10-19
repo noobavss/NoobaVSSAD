@@ -5,6 +5,7 @@
 #include <QList>
 #include <QStringList>
 #include <QDebug>
+#include <QHash>
 #include <featurenode.h>
 
 class SpeedNode : public FeatureNode
@@ -16,8 +17,8 @@ public:
     void processEvents(const QList<DetectedEvent> event);
 
 private:
-    QList<DetectedEvent> currentBlobEvents;
-    QList<DetectedEvent> previousBlobEvents;
+
+    QHash<QString,DetectedEvent> previousEvents;
 };
 
 #endif // SPEEDNODE_H
