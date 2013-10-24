@@ -16,6 +16,8 @@ public:
     void processEvents(const QList<DetectedEvent> event);
 private:
      QHash<QString,DetectedEvent> speedEvents;
+     QList<QString> splittedObjects;
+     QList<QString> nonSplittedObjects;
 };
 
 #endif // ABANDONEDOBJECTNODE_H

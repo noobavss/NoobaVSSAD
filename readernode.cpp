@@ -2,7 +2,7 @@
 
 ReaderNode::ReaderNode(FeatureNode* parent):
     FeatureNode(parent),
-    file("~/Programming/FYP/data/pets2006-test3-blobs.txt")
+    file("/home/chathuranga/Programming/FYP/data/text/2013-10-24-sample-blobs.txt")
 {
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         qDebug() << "No input file to read! Abort.";

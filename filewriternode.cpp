@@ -2,7 +2,8 @@
 
 FileWriterNode::FileWriterNode(FeatureNode *parent) :
     FeatureNode(parent),
-    file("/home/chathuranga/Programming/FYP/data/text/2013-10-13-blob-distances.txt")
+    ////home/chathuranga/Programming/FYP/data/text/2013-10-24-blobs-sample-abobjects
+    file("/home/chathuranga/Programming/FYP/data/text/2013-10-24-blobs-sample-abobjects.txt")
 {
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return;

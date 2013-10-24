@@ -3,6 +3,7 @@
 AbandonedObjectNode::AbandonedObjectNode(FeatureNode *parent) :
     FeatureNode(parent)
 {
+
 }
 
 
@@ -13,8 +14,6 @@ AbandonedObjectNode::~AbandonedObjectNode()
 
 void AbandonedObjectNode::processEvents(const QList<DetectedEvent> event)
 {
-
-    
 
 //    foreach( DetectedEvent e, event){
 //        qDebug() << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << e.getIdentifier() << " " << e.getMessage() << " " << e.getConfidence();
@@ -29,14 +28,43 @@ void AbandonedObjectNode::processEvents(const QList<DetectedEvent> event)
 
     if(!event.isEmpty()){
         QList<QString> id = event.at(0).getIdentifier().split("_");
-        if( id.at(0) == "distChange"){
+        if(id.at(0) == "distance"){
+
+            //Check firstever occurances of distance event, if it is near zero,
+            // make a note of that by assigning lable in to a list
+            foreach(DetectedEvent e, event){
+                QList<QString> message = e.getMessage().split(",");
+
+                if(message.at(0) == "3011"){
+                    qDebug()<<"List";
+                    foreach(QString str, splittedObjects){
+                        qDebug() << str;
+                    }
+                    qDebug()<<"EndList";
+                }
+
+                //TODO: These splittedObjects and nonSplittedObjects String Lists are not released at any time. so those are continuously growing. have to clean somehow
+                if(!splittedObjects.contains(message.at(1)) && !nonSplittedObjects.contains(message.at(1))){
+                    if(message.at(2).toFloat() > 250.0 && message.at(2).toFloat() < 300.0){
+                        splittedObjects.append(message.at(1));
+                        //qDebug() << "Added to Splitted objects" << message.at(1);
+                    }
+                    else{
+                        nonSplittedObjects.append(message.at(1));
+                    }
+                }
+
+            }
+        }
+        else if( id.at(0) == "distChange"){
 
             foreach(DetectedEvent distChangeEvent, event){
                 QList<QString> message = distChangeEvent.getMessage().split(",");
 
                 float distChange = message.at(2).toFloat();
 
-                if(distChange <1.0){
+
+                if(distChange <1.0 || !splittedObjects.contains(message.at(1))){
                     continue;
                 }
 
