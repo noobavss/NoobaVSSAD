@@ -4,7 +4,7 @@
 #include <QList>
 #include <QQueue>
 #include <QDebug>
-#include <featurenode.h>
+#include <NoobaVSSAD/featurenode.h>
 
 class DelayNode : public FeatureNode
 {

@@ -6,7 +6,7 @@
 #include <QStringList>
 #include <QDebug>
 #include <QHash>
-#include <featurenode.h>
+#include <NoobaVSSAD/featurenode.h>
 
 class SpeedNode : public FeatureNode
 {

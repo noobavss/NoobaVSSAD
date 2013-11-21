@@ -1,4 +1,4 @@
-#include "delaynode.h"
+#include "NoobaVSSAD/delaynode.h"
 
 DelayNode::DelayNode(FeatureNode *parent) :
     FeatureNode(parent),

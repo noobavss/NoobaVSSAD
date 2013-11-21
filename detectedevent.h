@@ -9,9 +9,8 @@ class DetectedEvent : public QObject
 {
     Q_OBJECT
 public:
-    DetectedEvent();
-    DetectedEvent(QObject *parent);             // constructor
-    DetectedEvent(const DetectedEvent &other);  // copy constructor
+    DetectedEvent(QObject *parent = 0);             // constructor
+    DetectedEvent(const DetectedEvent &other,QObject *parent = 0);  // copy constructor
     DetectedEvent& operator =(const DetectedEvent &other); // assignment operator
     ~DetectedEvent();
 

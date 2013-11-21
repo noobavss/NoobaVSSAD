@@ -5,7 +5,7 @@
 #include <qmath.h>
 #include <QList>
 #include <QStringList>
-#include <featurenode.h>
+#include <NoobaVSSAD/featurenode.h>
 
 class DistanceNode : public FeatureNode
 {

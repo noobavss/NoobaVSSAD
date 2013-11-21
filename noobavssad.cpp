@@ -1,4 +1,4 @@
-#include "noobavssad.h"
+#include "NoobaVSSAD/noobavssad.h"
 
 NoobaVSSAD::NoobaVSSAD(QObject *parent) :
     QObject(parent),

@@ -5,16 +5,18 @@
 #include <QDebug>
 #include <QList>
 #include <QStringList>
-#include <featurenode.h>
+#include <NoobaVSSAD/featurenode.h>
+#include "noobapluginapi.h"
 
 class ReaderNode : public FeatureNode
 {
 public:
     explicit ReaderNode(FeatureNode* parent = 0);
-    ReaderNode(QString filename,FeatureNode* parent = 0);
     ~ReaderNode();
 
     void processEvents(const QList<DetectedEvent> event);
+    bool openFile(QString filename);
+    void closeFile(void);
 
 
 private:

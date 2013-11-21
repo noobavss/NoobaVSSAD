@@ -1,28 +1,8 @@
-#include "readernode.h"
+#include "NoobaVSSAD/readernode.h"
 
 ReaderNode::ReaderNode(FeatureNode* parent):
-    FeatureNode(parent),
-    file("/home/chathuranga/Programming/FYP/data/text/2013-10-24-sample-blobs.txt")
+    FeatureNode(parent)
 {
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        qDebug() << "No input file to read! Abort.";
-        exit(1);
-    }
-
-    in.setDevice(&file);
-
-}
-
-ReaderNode::ReaderNode(QString filename,FeatureNode* parent):
-    FeatureNode(parent),
-    file(filename)
-{
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        qDebug() << "No input file named " << filename << "! Abort.";
-        exit(1);
-    }
-    in.setDevice(&file);
-
 }
 
 ReaderNode::~ReaderNode(){
@@ -83,4 +63,23 @@ QString ReaderNode::readFile(){
          exit(0);
          //return "\n";
      }
+}
+
+bool ReaderNode::openFile(QString filename){
+
+    if(file.isOpen()){
+        file.close();
+    }
+    file.setFileName(filename);
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        qDebug() << "No input file named " << filename << "! Abort.";
+        return false;
+    }
+    in.setDevice(&file);
+    return true;
+}
+
+void ReaderNode::closeFile(void){
+    file.close();
 }

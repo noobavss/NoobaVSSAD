@@ -7,7 +7,7 @@
 #include <QHash>
 #include <QList>
 #include <QStringList>
-#include <featurenode.h>
+#include <NoobaVSSAD/featurenode.h>
 
 class DistanceChange  : public FeatureNode
 {

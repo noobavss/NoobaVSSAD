@@ -5,13 +5,13 @@
 #include <QTimer>
 #include <QDebug>
 #include <QList>
-#include <readernode.h>
-#include <distancenode.h>
-#include <delaynode.h>
-#include <filewriternode.h>
-#include <speednode.h>
-#include <distancechange.h>
-#include <abandonedobjectnode.h>
+#include <NoobaVSSAD/readernode.h>
+#include <NoobaVSSAD/distancenode.h>
+#include <NoobaVSSAD/delaynode.h>
+#include <NoobaVSSAD/filewriternode.h>
+#include <NoobaVSSAD/speednode.h>
+#include <NoobaVSSAD/distancechange.h>
+#include <NoobaVSSAD/abandonedobjectnode.h>
 
 
 class NoobaVSSAD : public QObject

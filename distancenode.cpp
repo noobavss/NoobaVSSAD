@@ -1,4 +1,4 @@
-#include "distancenode.h"
+#include "NoobaVSSAD/distancenode.h"
 
 DistanceNode::DistanceNode(FeatureNode *parent) :
     FeatureNode(parent)

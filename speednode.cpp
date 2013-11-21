@@ -1,4 +1,4 @@
-#include "speednode.h"
+#include "NoobaVSSAD/speednode.h"
 
 SpeedNode::SpeedNode(FeatureNode *parent) :
     FeatureNode(parent)

@@ -1,7 +1,7 @@
 #include <QtCore/QCoreApplication>
 #include <QDebug>
-#include <readernode.h>
-#include <noobavssad.h>
+#include <NoobaVSSAD/readernode.h>
+#include <NoobaVSSAD/noobavssad.h>
 
 int main(int argc, char *argv[])
 {

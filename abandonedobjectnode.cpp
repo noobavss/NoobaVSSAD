@@ -1,4 +1,4 @@
-#include "abandonedobjectnode.h"
+#include "NoobaVSSAD/abandonedobjectnode.h"
 
 AbandonedObjectNode::AbandonedObjectNode(FeatureNode *parent) :
     FeatureNode(parent)
@@ -45,7 +45,7 @@ void AbandonedObjectNode::processEvents(const QList<DetectedEvent> event)
 
                 //TODO: These splittedObjects and nonSplittedObjects String Lists are not released at any time. so those are continuously growing. have to clean somehow
                 if(!splittedObjects.contains(message.at(1)) && !nonSplittedObjects.contains(message.at(1))){
-                    if(message.at(2).toFloat() > 250.0 && message.at(2).toFloat() < 300.0){
+                    if(message.at(2).toFloat() > split_min_limit && message.at(2).toFloat() < split_max_limit){
                         splittedObjects.append(message.at(1));
                         //qDebug() << "Added to Splitted objects" << message.at(1);
                     }
@@ -64,7 +64,7 @@ void AbandonedObjectNode::processEvents(const QList<DetectedEvent> event)
                 float distChange = message.at(2).toFloat();
 
 
-                if(distChange <1.0 || !splittedObjects.contains(message.at(1))){
+                if(distChange < distance_change_rate_threshold || !splittedObjects.contains(message.at(1))){
                     continue;
                 }
 
@@ -80,10 +80,10 @@ void AbandonedObjectNode::processEvents(const QList<DetectedEvent> event)
                     speedEvent = speedEvents.value(blobIds.at(1));
                     speedSecondBlob = speedEvent.getMessage().split(",").at(2).toFloat();
 
-                    if(speedFirstBlob <0.01 && speedSecondBlob > 3.0){
+                    if(speedFirstBlob < still_object_speed_threshold && speedSecondBlob > leaving_object_speed_threshold){
                         abandonedObjectEvent.append(DetectedEvent("ABObj",QString("%1,%2,%3,%4,%5,%6").arg(message.at(0)).arg(blobIds.at(0)).arg(blobIds.at(1)).arg(distChange).arg(speedFirstBlob).arg(speedSecondBlob),1.0));
                     }
-                    else if(speedFirstBlob > 3.0 && speedSecondBlob <0.01){
+                    else if(speedFirstBlob > leaving_object_speed_threshold && speedSecondBlob < still_object_speed_threshold){
                         abandonedObjectEvent.append(DetectedEvent("ABObj",QString("%1,%2,%3,%4,%5,%6").arg(message.at(0)).arg(blobIds.at(1)).arg(blobIds.at(0)).arg(distChange).arg(speedSecondBlob).arg(speedFirstBlob),1.0));
                     }
                 }
