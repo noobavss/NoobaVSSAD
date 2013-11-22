@@ -16,6 +16,7 @@ public:
     ~DistanceChange();
 
     void processEvents(const QList<DetectedEvent> event);
+    QList<DetectedEvent> processEventsLocal(const QList<DetectedEvent> event);
 
 private:
     QHash<QString,DetectedEvent> previousEvents;

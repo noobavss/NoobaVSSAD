@@ -16,11 +16,16 @@ FileWriterNode::~FileWriterNode()
 
 void FileWriterNode::processEvents(const QList<DetectedEvent> event)
 {
+    processEventsLocal(event);
+}
+
+QList<DetectedEvent> FileWriterNode::processEventsLocal(const QList<DetectedEvent> event){
     foreach(DetectedEvent e, event){
         qDebug() << "===================================" << e.getIdentifier() << " " << e.getMessage() << " " << e.getConfidence();
         out_stream << e.getIdentifier() << "," << e.getMessage() << "\n";
         out_stream.flush();
     }
+    return QList<DetectedEvent>();
 }
 
 bool FileWriterNode::openFile(QString filename){

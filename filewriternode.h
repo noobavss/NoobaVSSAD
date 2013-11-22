@@ -13,6 +13,7 @@ public:
     ~FileWriterNode();
 
     void processEvents(const QList<DetectedEvent> event);
+    QList<DetectedEvent> processEventsLocal(const QList<DetectedEvent> event);
 
     void closeFile(void);
     bool openFile(QString filename);

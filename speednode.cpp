@@ -13,12 +13,27 @@ SpeedNode::~SpeedNode()
 void SpeedNode::processEvents(const QList<DetectedEvent> event)
 {
 
+    //This is output event
+    QList<DetectedEvent> speedEvent;
+
+    speedEvent = processEventsLocal(event);
+
+    if(!speedEvent.isEmpty()){
+        emit generateEvent(speedEvent);
+    }
+
+
+}
+
+QList<DetectedEvent> SpeedNode::processEventsLocal(const QList<DetectedEvent> event){
 
     //This should recieve blob events only.
     //TODO: Remove some old keys from hash map in timely mannar.
 
+
     //This is output event
-    QList<DetectedEvent> speedEvent;
+    QList<DetectedEvent> speedEventLocal;
+
 
     //previousEvents hash map consists of previous events recieved before now.
     //if this is empty, we simply cannot find a speed.
@@ -41,7 +56,7 @@ void SpeedNode::processEvents(const QList<DetectedEvent> event)
                 float speedY = (newMessage.at(3).toFloat() - oldMessage.at(3).toFloat()) / (newMessage.at(0).toFloat() - oldMessage.at(0).toFloat());
 
                 float speed = sqrt(speedX * speedX + speedY * speedY);
-                speedEvent.append(DetectedEvent("speed",QString("%1,%2,%3").arg(newMessage.at(0)).arg(newMessage.at(1)).arg(speed),1.0));
+                speedEventLocal.append(DetectedEvent("speed",QString("%1,%2,%3").arg(newMessage.at(0)).arg(newMessage.at(1)).arg(speed),1.0));
 
             }
         }
@@ -53,9 +68,5 @@ void SpeedNode::processEvents(const QList<DetectedEvent> event)
         QList<QString> message = e.getMessage().split(",");
         previousEvents.insert(message.at(1),e);
     }
-    if(!speedEvent.isEmpty()){
-        emit generateEvent(speedEvent);
-    }
-
-
+    return speedEventLocal;
 }

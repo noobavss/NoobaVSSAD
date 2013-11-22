@@ -14,6 +14,7 @@ public:
     ~AbandonedObjectNode();
 
     void processEvents(const QList<DetectedEvent> event);
+    QList<DetectedEvent> processEventsLocal(const QList<DetectedEvent> event);
 
 
     /**

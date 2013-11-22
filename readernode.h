@@ -15,6 +15,7 @@ public:
     ~ReaderNode();
 
     void processEvents(const QList<DetectedEvent> event);
+    QList<DetectedEvent> processEventsLocal(const QList<DetectedEvent> event);
     bool openFile(QString filename);
     void closeFile(void);
 

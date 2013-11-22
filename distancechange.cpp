@@ -19,6 +19,21 @@ void DistanceChange::processEvents(const QList<DetectedEvent> event)
     //This is output event
     QList<DetectedEvent> distanceChangeEvent;
 
+    distanceChangeEvent = processEventsLocal(event);
+
+    if(!distanceChangeEvent.isEmpty()){
+        emit generateEvent(distanceChangeEvent);
+    }
+}
+
+QList<DetectedEvent> DistanceChange::processEventsLocal(const QList<DetectedEvent> event){
+
+    //This should recieve distance events only.
+    //TODO: Remove some old keys from hash map in timely mannar.
+
+    //This is output event
+    QList<DetectedEvent> distanceChangeEvent;
+
     //previousEvents hash map consists of previous events recieved before now.
     //if this is empty, we simply cannot find a difference.
     if(!previousEvents.isEmpty()){
@@ -53,7 +68,6 @@ void DistanceChange::processEvents(const QList<DetectedEvent> event)
         QList<QString> message = e.getMessage().split(",");
         previousEvents.insert(message.at(1),e);
     }
-    if(!distanceChangeEvent.isEmpty()){
-        emit generateEvent(distanceChangeEvent);
-    }
+    return distanceChangeEvent;
+
 }

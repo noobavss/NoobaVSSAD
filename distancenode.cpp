@@ -17,6 +17,17 @@ void DistanceNode::processEvents(const QList<DetectedEvent> event)
         return;
     }
     QList<DetectedEvent> distanceEvent;
+    distanceEvent = processEventsLocal(event);
+
+    emit generateEvent(distanceEvent);
+}
+
+QList<DetectedEvent> DistanceNode::processEventsLocal(const QList<DetectedEvent> event){
+
+    QList<DetectedEvent> distanceEvent;
+    if(event.count() < 2){
+        return distanceEvent;
+    }
     for(int i = 0; i < event.count(); i++){
         for(int j = i+1; j < event.count(); j++){
 
@@ -29,6 +40,5 @@ void DistanceNode::processEvents(const QList<DetectedEvent> event)
             distanceEvent.append(DetectedEvent("distance",QString("%1,%2-%3,%4").arg(params1.at(0)).arg(params1.at(1)).arg(params2.at(1)).arg(distance),1.0));
         }
     }
-
-    emit generateEvent(distanceEvent);
+    return distanceEvent;
 }

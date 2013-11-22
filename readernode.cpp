@@ -13,11 +13,21 @@ void ReaderNode::processEvents(const QList<DetectedEvent> event)
 {
 
     QList<DetectedEvent> generatedEvents;
+
+    generatedEvents = processEventsLocal(event);
+    if(!generatedEvents.isEmpty()){
+        emit generateEvent(generatedEvents);
+    }
+}
+
+QList<DetectedEvent> ReaderNode::processEventsLocal(const QList<DetectedEvent> event){
+
+    QList<DetectedEvent> generatedEvents;
     //qDebug() << event.getIdentifier() << " " << event.getMessage() << " " << event.getConfidence();
     QString eventmessage = readFile();
 
     if(eventmessage == ""){
-        return;
+        return generatedEvents;
     }
 
     QStringList event_strings = eventmessage.split("|");
@@ -45,8 +55,7 @@ void ReaderNode::processEvents(const QList<DetectedEvent> event)
             generatedEvents.append(newEvent);
         }
     }
-    emit generateEvent(generatedEvents);
-
+    return generatedEvents;
 }
 
 QString ReaderNode::readFile(){
