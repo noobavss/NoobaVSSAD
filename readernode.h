@@ -6,7 +6,6 @@
 #include <QList>
 #include <QStringList>
 #include <NoobaVSSAD/featurenode.h>
-#include "noobapluginapi.h"
 
 class ReaderNode : public FeatureNode
 {
